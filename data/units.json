@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "comment": "Единицы величин для Лабы 1. Поле toMeters — сколько базовых единиц своей группы содержится в одной единице (для длины базовая единица — метр, для массы — килограмм, для объёма — литр).",
+  "units": [
+    { "id": "mm",    "name": "Миллиметр",   "short": "мм",  "kind": "length", "toMeters": 0.001 },
+    { "id": "cm",    "name": "Сантиметр",   "short": "см",  "kind": "length", "toMeters": 0.01 },
+    { "id": "m",     "name": "Метр",        "short": "м",   "kind": "length", "toMeters": 1.0 },
+    { "id": "km",    "name": "Километр",    "short": "км",  "kind": "length", "toMeters": 1000.0 },
+    { "id": "in",    "name": "Дюйм",        "short": "in",  "kind": "length", "toMeters": 0.0254 },
+    { "id": "ft",    "name": "Фут",         "short": "ft",  "kind": "length", "toMeters": 0.3048 },
+    { "id": "yd",    "name": "Ярд",         "short": "yd",  "kind": "length", "toMeters": 0.9144 },
+    { "id": "mi",    "name": "Миля",        "short": "mi",  "kind": "length", "toMeters": 1609.344 },
+
+    { "id": "mg",    "name": "Миллиграмм",  "short": "мг",  "kind": "mass",   "toMeters": 0.000001 },
+    { "id": "g",     "name": "Грамм",       "short": "г",   "kind": "mass",   "toMeters": 0.001 },
+    { "id": "kg",    "name": "Килограмм",   "short": "кг",  "kind": "mass",   "toMeters": 1.0 },
+    { "id": "t",     "name": "Тонна",       "short": "т",   "kind": "mass",   "toMeters": 1000.0 },
+    { "id": "oz",    "name": "Унция",       "short": "oz",  "kind": "mass",   "toMeters": 0.028349523125 },
+    { "id": "lb",    "name": "Фунт",        "short": "lb",  "kind": "mass",   "toMeters": 0.45359237 },
+
+    { "id": "ml",    "name": "Миллилитр",   "short": "мл",  "kind": "volume", "toMeters": 0.001 },
+    { "id": "l",     "name": "Литр",        "short": "л",   "kind": "volume", "toMeters": 1.0 },
+    { "id": "m3",    "name": "Кубический метр", "short": "м³", "kind": "volume", "toMeters": 1000.0 },
+    { "id": "gal",   "name": "Галлон (США)", "short": "gal", "kind": "volume", "toMeters": 3.785411784 },
+    { "id": "cup",   "name": "Чашка (США)", "short": "cup", "kind": "volume", "toMeters": 0.2365882365 }
+  ]
+}
