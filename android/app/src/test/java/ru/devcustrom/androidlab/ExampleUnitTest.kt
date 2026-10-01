@@ -1,4 +1,4 @@
-package com.example.myapplication
+package ru.devcustrom.androidlab
 
 import org.junit.Test
 
