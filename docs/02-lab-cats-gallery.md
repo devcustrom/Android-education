@@ -8,13 +8,34 @@
 
 ---
 
-## 📋 Цель
+## 🎯 Цель работы
+
+> Сделать экран-галерею: приложение запрашивает 20 котов с [CATAAS](https://cataas.com/),
+> показывает их сеткой карточек, позволяет фильтровать по тегам и переживает отсутствие
+> сети за счёт дискового кэша.
 
 | | |
 |---|---|
 | **Что делаем** | Сетка карточек с котами, фильтр по тегам, pull-to-refresh, состояние ошибки с кнопкой «Повторить» |
 | **Чему учимся** | `RecyclerView` и переиспользование view, `ListAdapter` + `DiffUtil`, Coil для картинок, разделение «сеть» и «экран», файл-кэш в `filesDir` |
 | **Итоговый навык** | Понимать, почему список на 2000 элементов нельзя обновлять через `notifyDataSetChanged()` и почему картинку не надо грузить самому |
+
+## 📚 Что изучим
+
+- `RecyclerView` и `ViewHolder`: переиспользование `View` вместо создания новых
+- `LayoutManager` и сетка: `GridLayoutManager` с числом столбцов
+- `ListAdapter` + `DiffUtil`: `areItemsTheSame` против `areContentsTheSame`
+- Coil: `load()`, `placeholder`, `error`, `crossfade`, дисковый кэш
+- `StateFlow` и три состояния экрана: `Loading` / `Success` / `Error` плюс `refreshing`
+- Файл-кэш в `filesDir` и разница между `filesDir`, `cacheDir` и `externalCacheDir`
+- Локальная фильтрация без повторного сетевого запроса
+- Русские окончания через `plurals` и почему ручная арифметика — плохая идея
+
+---
+
+## 🖼️ Что получится
+
+![Демонстрация Лабы 2](assets/lab2-demo.gif)
 
 | Экран | Скриншот |
 |-------|----------|
@@ -23,6 +44,60 @@
 | Фильтр по тегу | ![Фильтр](assets/lab2-filter.png) |
 | Данные из кэша | ![Из кэша](assets/lab2-cache.png) |
 | Ошибка | ![Ошибка](assets/lab2-error.png) |
+
+---
+
+## 🧠 Архитектура
+
+```mermaid
+flowchart TD
+    subgraph UI["Экран: Lab2Activity"]
+        CHIPS["ChipGroup<br/>фильтр по тегам"]
+        SR["SwipeRefreshLayout<br/>+ RecyclerView"]
+        LOAD["ProgressBar"]
+        ERR["Error state<br/>+ кнопка «Повторить»"]
+    end
+
+    subgraph AD["Адаптер: CatAdapter"]
+        LA["ListAdapter<br/>DiffUtil: id / equals"]
+        COIL["Coil<br/>placeholder + error"]
+    end
+
+    subgraph VM["Данные: CatViewModel"]
+        SF["StateFlow&lt;CatsUiState&gt;"]
+        FILT["Фильтрация по тегу<br/>в памяти, без сети"]
+    end
+
+    subgraph REPO["CatRepository"]
+        SEQ["сеть → кэш → ошибка"]
+        FC["filesDir/cats_cache.json"]
+    end
+
+    API["CataasApi<br/>OkHttp + kotlinx.serialization"]
+
+    CHIPS -->|выбор тега| VM
+    SR -->|нажатие карточки| UI
+    CHIPS --> SR
+    SR --> AD
+    AD --> COIL
+    SF -->|render| UI
+    SR <-->|submitList| AD
+    LOAD -.->|Loading| UI
+    ERR -.->|Error| UI
+
+    UI --> VM
+    VM -->|viewModelScope + IO| REPO
+    REPO --> API
+    REPO <--> FC
+    API -.->|cataas.com| EXT(["https://cataas.com"])
+```
+
+Два ключевых решения, видных на схеме:
+
+1. **Фильтрация живёт в `CatViewModel`, а не в `Lab2Activity`.** Переключение чипа не
+   ходит в сеть, а меняет `StateFlow` — экран только перерисовывается.
+2. **Репозиторий возвращает `LoadResult`, а не «просто список».** Экрану нужно знать,
+   откуда взялись данные, чтобы честно написать «источник: кэш (сети нет)».
 
 ---
 
@@ -415,3 +490,35 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 - [ ] `RecyclerView` **не** обёрнут в `NestedScrollView`
 - [ ] У картинок заданы `placeholder` и `error`
 - [ ] Скриншоты и GIF лежат в `docs/assets/lab2-*`
+
+---
+
+## 🔗 Полезные ссылки
+
+- [Документация `RecyclerView`](https://developer.android.com/develop/ui/views/components/recyclerview)
+- [`ListAdapter` и `DiffUtil`](https://developer.android.com/develop/ui/views/components/recyclerview#diffutil)
+- [`GridLayoutManager`](https://developer.android.com/reference/androidx/recyclerview/widget/GridLayoutManager)
+- [Coil: Requests and caching](https://coil-kt.github.io/coil/compose/)
+- [Coil: ListAdapter + RecyclerView](https://coil-kt.github.io/coil/recipes/)
+- [CATAAS API](https://cataas.com/)
+- [`AppCompatActivity.onCreateOptionsMenu`](https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity#onCreateOptionsMenu(android.view.Menu))
+- [`ActivityResultContracts.StartActivityForResult`](https://developer.android.com/training/components/activity-result-contracts)
+- [Локализация и `plurals`](https://developer.android.com/guide/topics/resources/providing-resources#Plurals)
+
+---
+
+## 📌 Коммиты лабы
+
+| Хэш | Описание |
+|-----|----------|
+| `6c470c8` | Лаба 2: галерея котиков (`RecyclerView`, `ListAdapter` + `DiffUtil`, Coil, кэш в `filesDir`) |
+| `lab2-v1.0` | Тег: Лаба 2 завершена |
+
+> ⚠️ Расхождение с `Plan.md`: в разделе 6 указано «`ListView` для Лаб 1–2», но пункт `C2`
+> явно требует `RecyclerView` + `ListAdapter`. Следовал `C2`; переписывать работающую лабу
+> под противоречивую строку не стал.
+
+> ⚠️ Открытый вопрос: `tags` в 100 проверенных ответах CATAAS приходили **массивом**,
+> но у API встречается и строковый вариант (`"tags": "cute"`). Код рассчитан на массив,
+> терпимый сериализатор не добавлен. Если вёрстка строки сломается — причина здесь,
+> а не в `DiffUtil`.

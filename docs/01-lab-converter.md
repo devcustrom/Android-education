@@ -8,7 +8,11 @@
 
 ---
 
-## 📋 Цель
+## 🎯 Цель работы
+
+> Написать приложение-конвертер величин: пользователь выбирает категорию (длина, масса,
+> объём), единицу «откуда» и «куда», вводит число и получает результат. Справочник единиц
+> загружается с CDN, при отсутствии сети используется встроенная копия из `assets`.
 
 | | |
 |---|---|
@@ -16,11 +20,75 @@
 | **Чему учимся** | `Spinner` и `ArrayAdapter`, `ViewModel` + `StateFlow`, загрузка JSON через OkHttp, офлайн-фолбэк, восстановление состояния при повороте |
 | **Итоговый навык** | Понимать, где в Android «плоть» (Activity), а где — данные (ViewModel), и почему формулу надо выносить в отдельный объект |
 
-![Первый экран](assets/lab1-step1.png)
+## 📚 Что изучим
+
+- `Spinner`, `AdapterView.OnItemSelectedListener`, `ArrayAdapter` и его `getDropDownView()`
+- `ViewModel` + `viewModelScope` + `StateFlow` как способ пережить поворот экрана
+- `TextWatcher`: почему `EditText` нельзя читать один раз в `onCreate`
+- OkHttp и `kotlinx.serialization`: `ignoreUnknownKeys`, `explicitNulls`
+- Разделение «сеть» (`UnitsApi`) и «данные» (`UnitsViewModel`)
+- `UnitConverter` — чистый Kotlin-класс, который можно тестировать без Android
 
 ---
 
-## 📚 Теория
+## 🖼️ Что получится
+
+![Демонстрация Лабы 1](assets/lab1-demo.gif)
+
+| Экран | Скриншот |
+|-------|----------|
+| Работа с единицами | ![Шаг 1](assets/lab1-step1.png) |
+| Результат конвертации | ![Шаг 2](assets/lab1-step2.png) |
+| Офлайн-режим из `assets` | ![Офлайн](assets/lab1-offline.png) |
+
+---
+
+## 🧠 Архитектура
+
+```mermaid
+flowchart TD
+    subgraph UI["Экран: Lab1Activity"]
+        SP["3 × Spinner<br/>ArrayAdapter&lt;Unit&gt;"]
+        ET["EditText<br/>+ TextWatcher"]
+        TV["TextView результата"]
+    end
+
+    subgraph VM["Данные: UnitsViewModel"]
+        SF["StateFlow&lt;UnitsUiState&gt;"]
+        SC["viewModelScope<br/>+ Dispatchers.IO"]
+    end
+
+    subgraph DATA["Доступ к данным"]
+        API["UnitsApi<br/>OkHttp + kotlinx.serialization"]
+        AS["assets/units.json<br/>офлайн-фолбэк"]
+    end
+
+    UC["UnitConverter<br/>value * from.toMeters / to.toMeters"]
+
+    SP --> SF
+    ET --> SP
+    SF -.->|stateIn| SP
+    TV <-->|value / setValue| SF
+    SF --> SC
+    SC --> API
+    SC -.->|сеть не ответила| AS
+    SF --> UC
+    UC --> TV
+```
+
+Ключевая идея: `Lab1Activity` **не знает**, откуда пришли единицы — из сети или из
+`assets`. Она подписана на `StateFlow` и просто рисует то, что получила. Источник
+данных — деталь репозитория, а не экрана.
+
+---
+
+## 🧠 Теория
+
+| Параметр | Значение |
+|----------|----------|
+| **Формат ввода** | Целое или дробное число, допускается запятая |
+| **Точность** | До 6 знаков после запятой, лишние нули отбрасываются |
+| **Источник** | CDN `cdn.jsdelivr.net` → `assets/units.json` |
 
 ### 1.1 Что такое `Spinner`
 
@@ -399,3 +467,30 @@ cd android
 - [ ] Без сети приложение работает и честно пишет, что взяло данные из `assets`
 - [ ] `./gradlew test` — зелёные
 - [ ] Скриншоты и GIF лежат в `docs/assets/`
+
+---
+
+## 🔗 Полезные ссылки
+
+- [Документация `Spinner`](https://developer.android.com/develop/ui/views/components/spinner)
+- [`AdapterView.OnItemSelectedListener`](https://developer.android.com/reference/android/widget/AdapterView.OnItemSelectedListener)
+- [Обзор `ViewModel`](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [`StateFlow`](https://developer.android.com/kotlin/flow/stateflow) и жизненный цикл `repeatOnLifecycle`
+- [OkHttp: рецепты](https://square.github.io/okhttp/recipes/)
+- [kotlinx.serialization: обработка ошибок](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md)
+- [Как работает `AppCompatActivity` при повороте экрана](https://developer.android.com/guide/components/activities/config-changes)
+
+---
+
+## 📌 Коммиты лабы
+
+| Хэш | Описание |
+|-----|----------|
+| `4ae573c` | Лаба 1: конвертер величин на `Spinner`, 11 unit-тестов, документация |
+| `e8155b9` | Исключить `.idea` из репозитория |
+| `lab1-v1.0` | Тег: Лаба 1 завершена |
+
+> ⚠️ Расхождение с `Plan.md`: в разделе 6 указано «`ListView` для Лаб 1–2», но пункт `B2`
+> требует `Spinner`, а `C2` — `RecyclerView`. Следовал пунктам `B2`/`C2`, потому что они
+> конкретнее и уже реализованы; переписывать работающую лабу под противоречивую строку
+> не стал.
