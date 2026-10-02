@@ -1,15 +1,12 @@
 *.iml
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
+# Настройки Android Studio — это личное окружение, а не часть проекта.
+# Файлы нужны IDE локально, но в репозитории им не место.
+/.idea
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+.DS_Store
