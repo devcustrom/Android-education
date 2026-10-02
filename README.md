@@ -9,7 +9,7 @@
 | Лаба | Тема | Документация | Статус | Тег |
 |:----:|------|:-------------|:------:|:---:|
 | 1 | Конвертер величин | [docs/01-lab-converter.md](docs/01-lab-converter.md) | ✅ | `lab1-v1.0` |
-| 2 | Галерея котиков (CATAAS) | [docs/02-lab-cats-gallery.md](docs/02-lab-cats-gallery.md) | 🔜 | `lab2-v1.0` |
+| 2 | Галерея котиков (CATAAS) | [docs/02-lab-cats-gallery.md](docs/02-lab-cats-gallery.md) | ✅ | `lab2-v1.0` |
 | 3 | Меню, `Intent`, несколько Activity | [docs/03-lab-menu-activity.md](docs/03-lab-menu-activity.md) | 🔜 | `lab3-v1.0` |
 | 4 | Файлы, кэш, сохранение состояния | [docs/04-lab-files-state.md](docs/04-lab-files-state.md) | 🔜 | `lab4-v1.0` |
 | 5 | Room: заметки | [docs/05-lab-room.md](docs/05-lab-room.md) | 🔜 | `lab5-v1.0` |
@@ -27,7 +27,7 @@
 | Лаба | Демо |
 |:----:|------|
 | 1 | ![Конвертер величин](docs/assets/lab1-demo.gif) |
-| 2 | ![TODO](docs/assets/lab2-demo.gif) |
+| 2 | ![Галерея котиков](docs/assets/lab2-demo.gif) |
 | 3 | ![TODO](docs/assets/lab3-demo.gif) |
 | 4 | ![TODO](docs/assets/lab4-demo.gif) |
 | 5 | ![TODO](docs/assets/lab5-demo.gif) |

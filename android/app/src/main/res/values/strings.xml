@@ -23,4 +23,22 @@
     <string name="lab1_group_mass">Масса</string>
     <string name="lab1_group_volume">Объём</string>
     <string name="lab1_error_value">Введите число</string>
+
+    <!-- Лабораторная 2 -->
+    <string name="lab2_title">Лаба 2. Галерея котиков</string>
+    <string name="lab2_loading">Грузим котов с CATAAS…</string>
+    <string name="lab2_retry">Повторить</string>
+    <string name="lab2_error">Ошибка загрузки</string>
+    <string name="lab2_cat_photo">Фотография кота</string>
+    <string name="lab2_no_browser">Не найдено приложение для открытия ссылки</string>
+    <string name="lab2_source_network">источник: сеть</string>
+    <string name="lab2_source_cache">источник: кэш (сети нет)</string>
+    <string name="lab2_tag_chip">%1$s · %2$d</string>
+
+    <plurals name="lab2_cats_count">
+        <item quantity="one">%d кот</item>
+        <item quantity="few">%d кота</item>
+        <item quantity="many">%d котов</item>
+        <item quantity="other">%d котов</item>
+    </plurals>
 </resources>

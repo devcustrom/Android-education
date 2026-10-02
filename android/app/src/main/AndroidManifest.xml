@@ -28,6 +28,11 @@
             android:name=".lab1.Lab1Activity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".lab2.Lab2Activity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

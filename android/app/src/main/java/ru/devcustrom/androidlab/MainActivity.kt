@@ -5,12 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.devcustrom.androidlab.databinding.ActivityMainBinding
 import ru.devcustrom.androidlab.lab1.Lab1Activity
+import ru.devcustrom.androidlab.lab2.Lab2Activity
 
 /**
  * Стартовый экран.
  *
- * Сейчас на нём только кнопка перехода в Лабу 1 — в Лабе 3 здесь появится
- * список всех лабораторных работ.
+ * Сейчас на нём кнопки на Лабы 1 и 2 — в Лабе 3 здесь появится список всех
+ * лабораторных работ.
  */
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.openLab1Button.setOnClickListener {
             startActivity(Intent(this, Lab1Activity::class.java))
+        }
+
+        binding.openLab2Button.setOnClickListener {
+            startActivity(Intent(this, Lab2Activity::class.java))
         }
     }
 }
