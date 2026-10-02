@@ -1,25 +1,28 @@
 package ru.devcustrom.androidlab
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import ru.devcustrom.androidlab.databinding.ActivityMainBinding
+import ru.devcustrom.androidlab.lab1.Lab1Activity
 
+/**
+ * Стартовый экран.
+ *
+ * Сейчас на нём только кнопка перехода в Лабу 1 — в Лабе 3 здесь появится
+ * список всех лабораторных работ.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        binding.openLab1Button.setOnClickListener {
+            startActivity(Intent(this, Lab1Activity::class.java))
         }
     }
 }

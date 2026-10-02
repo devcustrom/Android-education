@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Android Labs</string>
+    <string name="main_intro">Учебные лабораторные работы по Android: от Spinner и RecyclerView до Room, файлов и кастомной графики. Каждая работа — отдельный экран и отдельная глава документации.</string>
+
+    <!-- Общее -->
+    <string name="action_back">Назад</string>
+    <string name="source_cdn">Источник: CDN (jsDelivr)</string>
+    <string name="source_assets">Источник: assets (офлайн-копия)</string>
+
+    <!-- Лабораторная 1 -->
+    <string name="lab1_title">Лаба 1. Конвертер величин</string>
+    <string name="lab1_pick_group">Что конвертируем</string>
+    <string name="lab1_from">Откуда</string>
+    <string name="lab1_to">Куда</string>
+    <string name="lab1_swap">Поменять местами</string>
+    <string name="lab1_value_hint">Значение</string>
+    <string name="lab1_result_placeholder">—</string>
+    <string name="lab1_result_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="lab1_loading">Загружаем справочник единиц…</string>
+    <string name="lab1_retry">Повторить</string>
+    <string name="lab1_empty_group">Выберите группу величин</string>
+    <string name="lab1_group_length">Длина</string>
+    <string name="lab1_group_mass">Масса</string>
+    <string name="lab1_group_volume">Объём</string>
+    <string name="lab1_error_value">Введите число</string>
 </resources>

@@ -1,14 +1,14 @@
 # Android-education
 
 > Учебный Android-проект на Kotlin: **6 лабораторных работ в одном приложении**, каждая со своим
-> разбором, граблями и пошаговымGuide. Репозиторий задуман как наглядное пособие: по нему можно
+> разбором, граблями и пошаговым guide. Репозиторий задуман как наглядное пособие: по нему можно
 > пройти весь путь от нуля до рабочего приложения и не повторить чужие ошибки.
 
 <div align="center">
 
 | Лаба | Тема | Документация | Статус | Тег |
 |:----:|------|:-------------|:------:|:---:|
-| 1 | Конвертер величин | [docs/01-lab-converter.md](docs/01-lab-converter.md) | 🔜 | `lab1-v1.0` |
+| 1 | Конвертер величин | [docs/01-lab-converter.md](docs/01-lab-converter.md) | ✅ | `lab1-v1.0` |
 | 2 | Галерея котиков (CATAAS) | [docs/02-lab-cats-gallery.md](docs/02-lab-cats-gallery.md) | 🔜 | `lab2-v1.0` |
 | 3 | Меню, `Intent`, несколько Activity | [docs/03-lab-menu-activity.md](docs/03-lab-menu-activity.md) | 🔜 | `lab3-v1.0` |
 | 4 | Файлы, кэш, сохранение состояния | [docs/04-lab-files-state.md](docs/04-lab-files-state.md) | 🔜 | `lab4-v1.0` |
@@ -22,10 +22,11 @@
 ## 📸 Скриншоты
 
 > Заполняются по мере прохождения лаб. Файлы лежат в [`docs/assets/`](docs/assets/).
+> Показанные GIF — реальные прогоны на эмуляторе; у ещё не сделанных лаб стоят заглушки.
 
 | Лаба | Демо |
 |:----:|------|
-| 1 | ![TODO](docs/assets/lab1-demo.gif) |
+| 1 | ![Конвертер величин](docs/assets/lab1-demo.gif) |
 | 2 | ![TODO](docs/assets/lab2-demo.gif) |
 | 3 | ![TODO](docs/assets/lab3-demo.gif) |
 | 4 | ![TODO](docs/assets/lab4-demo.gif) |
@@ -94,7 +95,7 @@ Android-education/
 │   ├── 04-lab-files-state.md
 │   ├── 05-lab-room.md
 │   ├── 06-lab-canvas-widget.md
-│   └── assets/                ← скриншоты и GIF- демонстрации
+│   └── assets/                ← скриншоты и GIF-демонстрации
 ├── android/                   ← Gradle-проект (открывать в Android Studio)
 │   ├── gradle/libs.versions.toml   ← все версии библиотек в одном месте
 │   └── app/src/main/
