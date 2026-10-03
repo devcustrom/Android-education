@@ -43,6 +43,31 @@
             android:name=".lab3.SettingsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".lab4.Lab4Activity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".lab4.CacheViewActivity"
+            android:exported="false"
+            android:parentActivityName=".lab4.Lab4Activity" />
+
+        <!--
+          На API 24+ нельзя отдать другому приложению Uri.fromFile(...) —
+          система выбросит FileUriExposedException. FileProvider выдаёт
+          разрешённый Uri только для каталогов из res/xml/file_paths.xml.
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

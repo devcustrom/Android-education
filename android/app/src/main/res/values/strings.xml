@@ -14,12 +14,12 @@
     <string name="lab1_summary">Spinner, ViewModel, загрузка JSON с CDN</string>
     <string name="lab2_summary">RecyclerView, DiffUtil, Coil, кэш в filesDir</string>
     <string name="lab3_summary">Меню, Intent, обмен результатом между экранами</string>
-    <string name="lab4_summary">Файлы, Bundle, экспорт через MediaStore</string>
     <string name="lab5_summary">Room, DAO, Flow, список заметок</string>
     <string name="lab6_summary">Canvas, локализация, виджет</string>
 
     <!-- Заголовки ещё не реализованных лаб: пункт в списке есть, работы пока нет -->
     <string name="lab3_title">Лаба 3. Меню и несколько Activity</string>
+    <string name="lab4_summary">Bundle, filesDir, MediaStore</string>
     <string name="lab4_title">Лаба 4. Файлы и состояния</string>
     <string name="lab5_title">Лаба 5. База данных на Room</string>
     <string name="lab6_title">Лаба 6. Графика, локализация, виджет</string>
@@ -89,4 +89,24 @@
         <item quantity="many">%d котов</item>
         <item quantity="other">%d котов</item>
     </plurals>
+<!-- Лаба 4: файлы, кэш, сохранение состояния -->
+    <string name="lab4_cache_view_title">cats_cache.json</string>
+    <string name="lab4_cache_info">%1$d котов · %2$d байт</string>
+    <string name="lab4_cache_meta">%1$d байт · %2$d котов</string>
+    <string name="lab4_cache_missing">Кэша нет: откройте Лабу 2 и загрузите галерею</string>
+    <string name="lab4_cache_cleared">Кэш удалён</string>
+    <string name="lab4_cache_clear_failed">Не удалось удалить кэш</string>
+    <string name="lab4_empty_cache">Кэш пуст. Загрузите галерею в Лабе 2</string>
+    <string name="lab4_selected">Выбрано: %1$d · нажмите на кота, отметить его</string>
+    <string name="lab4_id_copied">ID скопирован: %1$s</string>
+    <string name="lab4_show_cache">Показать кэш</string>
+    <string name="lab4_clear_cache">Очистить кэш</string>
+    <string name="lab4_export">Экспорт в «Загрузки»</string>
+    <string name="lab4_export_ok">Экспортировано: %1$s</string>
+    <string name="lab4_export_failed">Не удалось экспортировать: %1$s</string>
+    <string name="lab4_cat_removed">Удалён из кэша: %1$s</string>
+    <string name="lab4_cat_not_found">В кэше нет кота %1$s</string>
+    <string name="lab4_share_cat">Поделиться</string>
+    <string name="lab4_copy_cat_id">Скопировать ID</string>
+    <string name="lab4_remove_cat">Удалить из кэша</string>
 </resources>

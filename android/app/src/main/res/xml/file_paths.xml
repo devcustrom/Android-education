@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Пути, которые приложение готово отдавать наружу через FileProvider.
+
+  На API 24+ нельзя передать Uri.fromFile(...) другому приложению:
+  система выбросит FileUriExposedException. Поэтому наружу отдаётся только
+  Uri, выданный провайдером, и только для явно перечисленных каталогов.
+-->
+<paths>
+
+    <!-- Лаба 4, экспорт на API < 29: Downloads внутри каталога приложения -->
+    <external-files-path
+        name="app_downloads"
+        path="Download/" />
+
+    <!-- Кэш котов: filesDir/cats_cache.json -->
+    <files-path
+        name="internal_files"
+        path="." />
+
+    <!-- Временные файлы, если они понадобятся -->
+    <cache-path
+        name="app_cache"
+        path="." />
+
+</paths>

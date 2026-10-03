@@ -36,6 +36,27 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    testOptions {
+        unitTests {
+            /**
+             * Методы `android.util.Log` в обычных unit-тестах — заглушки, и
+             * без этого флага вызов бросает `RuntimeException: not mocked`.
+             *
+             * Лаба 4 добавила 11 тестов на файловый кэш, и все они падали на
+             * `Log.i(TAG, "Кэш записан: …")`. Три варианта:
+             *
+             * 1. Убрать логирование из `CatCache` — теряем диагностику в проде.
+             * 2. Замокать `Log` — нужен Mockito ради одного класса.
+             * 3. `returnDefaultValues = true` — методы возвращают 0/false.
+             *
+             * Выбран третий: логи остаются, лишних зависимостей нет. Побочный
+             * эффект тот же, что и у Robolectric: тест не заметит, если код
+             * начнёт *читать* результат вызова `Log`. Читать его нельзя.
+             */
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
