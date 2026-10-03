@@ -7,6 +7,54 @@
     <string name="source_cdn">Источник: CDN (jsDelivr)</string>
     <string name="source_assets">Источник: assets (офлайн-копия)</string>
 
+    <!-- Главный экран и Лабораторная 3 -->
+    <string name="lab_number_format">№%1$d</string>
+    <string name="lab_status_ready">Готово</string>
+    <string name="lab_status_soon">В разработке</string>
+    <string name="lab1_summary">Spinner, ViewModel, загрузка JSON с CDN</string>
+    <string name="lab2_summary">RecyclerView, DiffUtil, Coil, кэш в filesDir</string>
+    <string name="lab3_summary">Меню, Intent, обмен результатом между экранами</string>
+    <string name="lab4_summary">Файлы, Bundle, экспорт через MediaStore</string>
+    <string name="lab5_summary">Room, DAO, Flow, список заметок</string>
+    <string name="lab6_summary">Canvas, локализация, виджет</string>
+
+    <!-- Заголовки ещё не реализованных лаб: пункт в списке есть, работы пока нет -->
+    <string name="lab3_title">Лаба 3. Меню и несколько Activity</string>
+    <string name="lab4_title">Лаба 4. Файлы и состояния</string>
+    <string name="lab5_title">Лаба 5. База данных на Room</string>
+    <string name="lab6_title">Лаба 6. Графика, локализация, виджет</string>
+
+    <string name="menu_about">О программе</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_exit">Выход</string>
+    <string name="menu_open">Открыть</string>
+    <string name="menu_share">Поделиться</string>
+
+    <string name="main_not_ready">%1$s ещё не реализована</string>
+    <string name="main_share_format">Смотри лабораторную работу «%1$s» в Android Labs</string>
+    <string name="main_share_chooser">Поделиться</string>
+    <string name="main_no_share_app">Не найдено приложение для отправки</string>
+    <string name="main_last_value">Лаба 1 вернула: %1$s</string>
+
+    <!-- Лабораторная 3: О программе и Настройки -->
+    <string name="about_title">О программе</string>
+    <string name="about_student_format">Студент: %1$s</string>
+    <string name="about_student_unset">Студент не указан — загляните в «Настройки»</string>
+    <string name="about_version_format">Версия %1$s</string>
+    <string name="about_what_is_this">Что это</string>
+    <string name="about_description">Учебный проект из шести лабораторных работ по Android: от Spinner и списков до Room, файлов и кастомной графики. Каждая работа — отдельный экран и отдельная глава документации.</string>
+    <string name="about_intent_hint">Этот экран запускается через Intent из главного меню. Имя студента приходит в нём как extra «student_name».</string>
+    <string name="about_share_button">Поделиться приложением</string>
+    <string name="about_share_text">Android Labs — учебный проект по Android</string>
+    <string name="about_share_chooser">Поделиться</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="settings_name_hint">Имя студента</string>
+    <string name="settings_name_hint_note">Сохраняется в SharedPreferences и передаётся в экраны лабораторных через Intent.</string>
+    <string name="settings_save">Сохранить</string>
+    <string name="settings_name_error">Введите имя</string>
+    <string name="settings_saved">Сохранено</string>
+
     <!-- Лабораторная 1 -->
     <string name="lab1_title">Лаба 1. Конвертер величин</string>
     <string name="lab1_pick_group">Что конвертируем</string>

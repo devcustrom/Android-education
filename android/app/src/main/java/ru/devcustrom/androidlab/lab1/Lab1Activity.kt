@@ -1,5 +1,6 @@
 package ru.devcustrom.androidlab.lab1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -10,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import ru.devcustrom.androidlab.R
+import ru.devcustrom.androidlab.common.LabIntents
 import ru.devcustrom.androidlab.data.model.Unit
 import ru.devcustrom.androidlab.data.model.UnitKind
 import ru.devcustrom.androidlab.data.network.UnitsApi
@@ -44,6 +46,12 @@ class Lab1Activity : AppCompatActivity() {
      */
     private var selectedFromId: String? = null
     private var selectedToId: String? = null
+
+    /**
+     * Последний валидный результат: хранится, чтобы восстановить его после
+     * поворота, когда `recalculate()` ещё не отработал.
+     */
+    private var lastResult: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +104,27 @@ class Lab1Activity : AppCompatActivity() {
         selectedFromId?.let { outState.putString(STATE_FROM, it) }
         selectedToId?.let { outState.putString(STATE_TO, it) }
     }
+
+/**
+ * Отдаём главному экрану последнюю посчитанную строку результата.
+ *
+ * `setResult` вызывается **сразу после расчёта**, а не в `onPause` перед
+ * закрытием — такой «хороший» способ не работает: на проверенной версии Android
+ * колбэк всё равно получает `RESULT_CANCELED` и `data == null`, потому что
+ * результат к этому моменту уже поздно менять.
+ *
+ * Держать актуальное значение в поле и отдать его «на выходе» кажется
+ * аккуратнее, но ровно эта схема и не сработала.
+ */
+private fun publishResult(result: String) {
+    lastResult = result
+    setResult(RESULT_OK, Intent().putExtra(LabIntents.EXTRA_LAST_VALUE, result))
+}
+
+private fun clearResult() {
+    lastResult = null
+    setResult(RESULT_CANCELED)
+}
 
     /**
      * `repeatOnLifecycle(STARTED)` — подписка живёт ровно пока экран видим,
@@ -201,6 +230,7 @@ class Lab1Activity : AppCompatActivity() {
 
         if (selectedKind == null) {
             binding.resultText.setText(R.string.lab1_empty_group)
+            clearResult()
             return
         }
 
@@ -208,6 +238,7 @@ class Lab1Activity : AppCompatActivity() {
         if (raw.isEmpty()) {
             binding.inputLayout.error = null
             binding.resultText.setText(R.string.lab1_result_placeholder)
+            clearResult()
             return
         }
 
@@ -215,6 +246,7 @@ class Lab1Activity : AppCompatActivity() {
         if (value == null) {
             binding.inputLayout.error = getString(R.string.lab1_error_value)
             binding.resultText.setText(R.string.lab1_result_placeholder)
+            clearResult()
             return
         }
         binding.inputLayout.error = null
@@ -227,6 +259,11 @@ class Lab1Activity : AppCompatActivity() {
             UnitConverter.format(result),
             to.short,
         )
+
+        // Отдаём результат наружу сразу, а не по кнопке «назад»: вызывающий экран
+        // должен получить значение даже если пользователь уйдёт через стрелку
+        // тулбара или выключит приложение.
+        publishResult(binding.resultText.text.toString())
     }
 
     private fun kindTitleRes(kind: UnitKind): Int = when (kind) {

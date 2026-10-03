@@ -7,6 +7,50 @@
 
 ## [Unreleased]
 
+## [1.2.0] — Лабораторная 3
+
+### Этап D — меню и несколько Activity
+- Главный экран переписан: вместо двух кнопок — `RecyclerView` со списком всех шести лабораторных.
+- `common/LabItem.kt` + `LabCatalog.all`: список лаб — данные, а не вёрстка. Недоступные лабы
+  присутствуют с `activityClass = null` и помечены «В разработке».
+- `common/LabAdapter.kt`: `ListAdapter` + `DiffUtil`, бейдж с номером лабы, обработка долгого нажатия.
+- `common/LabIntents.kt`: все ключи `Intent` в одном месте.
+- `common/StudentPrefs.kt`: имя студента в `SharedPreferences`.
+- Options-меню: «О программе», «Настройки», «Выход» (`finishAffinity()`).
+- Контекстное меню по долгому нажатию: «Открыть», «Поделиться» (`ACTION_SEND` + `createChooser`).
+- `lab3/AboutActivity.kt`: получает имя студента через `getStringExtra`, показывает версию из `PackageInfo`.
+- `lab3/SettingsActivity.kt`: ввод и сохранение имени студента.
+- `Lab1Activity` отдаёт последний результат через `setResult`, `MainActivity` принимает его
+  через `ActivityResultContracts.StartActivityForResult` и показывает в `Snackbar`.
+
+### Принятые технические решения
+- Контекстное меню сделано через `PopupMenu`, а не `registerForContextMenu(labsList)`: у
+  `RecyclerView` нет `getContextMenuInfo()`, поэтому в `onCreateContextMenu` приходит `info == null`
+  и позицию нажатой строки взять неоткуда. Её знает только адаптер.
+- `setResult` вызывается **сразу после расчёта**, а не в `onPause` перед закрытием: на
+  проверенной версии Android вызов в `onPause` при `isFinishing = true` не доходит —
+  колбэк получает `RESULT_CANCELED` и `data == null`. Пустой или некорректный ввод сбрасывает
+  результат через `setResult(RESULT_CANCELED)`.
+- Все ключи `Intent` вынесены в `LabIntents`: строки в `putExtra`/`getStringExtra` — неявный
+  контракт между двумя файлами, который ломается без ошибок компиляции.
+- `setSupportActionBar(binding.toolbar)` обязателен: тема `NoActionBar`, без этого вызова
+  `onCreateOptionsMenu` не вызывается и меню просто не существует — без единой ошибки в logcat.
+- Версия приложения читается из `PackageInfo`, а не из `BuildConfig`: в AGP 9 генерация
+  `BuildConfig` выключена по умолчанию.
+- Добавлен экран «Настройки», которого нет в плане: пункт меню без действия — это баг, а не
+  заглушка. Он же даёт имя студента для передачи через `Intent`.
+- Документация: `docs/03-lab-menu-activity.md` с разбором 7 грабель.
+- Скриншоты и GIF: `docs/assets/lab3-*` (список, options-меню, контекстное меню,
+  «О программе», «Настройки», возвращённый результат).
+
+### Исправления документации
+- `docs/01-lab-converter.md` и `docs/02-lab-cats-gallery.md` приведены к шаблону плана:
+  добавлены Mermaid-диаграммы архитектуры и разделы «Что получится», «Полезные ссылки»,
+  «Коммиты лабы»; удалён дублирующий раздел «Цель».
+- Зафиксировано противоречие самого `Plan.md`: раздел 6 требует `ListView` для Лаб 1–2,
+  а пункты `B2`/`C2` — `Spinner` и `RecyclerView`. Следованы пункты этапов; расхождение
+  отмечено в обеих документациях.
+
 ## [1.1.0] — Лабораторная 2
 
 ### Этап C — галерея котиков
