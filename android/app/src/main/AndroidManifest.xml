@@ -54,6 +54,17 @@
             android:exported="false"
             android:parentActivityName=".lab4.Lab4Activity" />
 
+        <activity
+            android:name=".lab5.Lab5Activity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".lab5.NoteEditActivity"
+            android:exported="false"
+            android:parentActivityName=".lab5.Lab5Activity"
+            android:windowSoftInputMode="adjustResize" />
+
         <!--
           На API 24+ нельзя отдать другому приложению Uri.fromFile(...) —
           система выбросит FileUriExposedException. FileProvider выдаёт

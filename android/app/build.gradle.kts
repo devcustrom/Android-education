@@ -4,6 +4,13 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+// Схема Room экспортируется в android/app/schemas: файлы версий нужны,
+// чтобы при следующем изменении проверить миграцию, а не надеяться на глаз.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+}
+
 android {
     namespace = "ru.devcustrom.androidlab"
     compileSdk {

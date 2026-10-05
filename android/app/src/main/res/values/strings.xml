@@ -89,7 +89,37 @@
         <item quantity="many">%d котов</item>
         <item quantity="other">%d котов</item>
     </plurals>
-<!-- Лаба 4: файлы, кэш, сохранение состояния -->
+<!-- Лаба 5: Room, заметки -->
+    <string name="lab5_add">Добавить</string>
+    <string name="lab5_save">Сохранить</string>
+    <string name="lab5_new_note">Новая заметка</string>
+    <string name="lab5_edit_note">Редактирование</string>
+    <string name="lab5_note_title">Заголовок</string>
+    <string name="lab5_note_body">Текст заметки</string>
+    <string name="lab5_empty">Заметок пока нет.\nНажмите «Добавить», чтобы создать первую.</string>
+    <string name="lab5_empty_search">Ничего не нашлось</string>
+    <string name="lab5_empty_note">Введите заголовок или текст</string>
+    <string name="lab5_saved">Заметка сохранена</string>
+    <string name="lab5_note_missing">Заметку удалили, пока экран был открыт</string>
+    <string name="lab5_delete_all">Удалить все заметки</string>
+    <string name="lab5_delete_all_confirm">Заметки нельзя восстановить. Удалить всё?</string>
+    <string name="lab5_delete">Удалить</string>
+    <string name="lab5_all_deleted">Все заметки удалены</string>
+    <string name="lab5_meta">%1$s · id=%2$d</string>
+    <string name="lab5_just_now">только что</string>
+    <string name="lab5_no_title">Без названия</string>
+    <string name="lab5_search">Поиск</string>
+    <string name="lab5_search_hint">Поиск по заметкам</string>
+    <string name="lab5_deleted">Заметка удалена</string>
+    <string name="lab5_undo">Вернуть</string>
+    <plurals name="lab5_count">
+        <item quantity="one">%d заметка</item>
+        <item quantity="few">%d заметки</item>
+        <item quantity="many">%d заметок</item>
+        <item quantity="other">%d заметки</item>
+    </plurals>
+
+    <!-- Лаба 4: файлы, кэш, сохранение состояния -->
     <string name="lab4_cache_view_title">cats_cache.json</string>
     <string name="lab4_cache_info">%1$d котов · %2$d байт</string>
     <string name="lab4_cache_meta">%1$d байт · %2$d котов</string>
