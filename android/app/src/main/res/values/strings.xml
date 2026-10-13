@@ -139,4 +139,39 @@
     <string name="lab4_share_cat">Поделиться</string>
     <string name="lab4_copy_cat_id">Скопировать ID</string>
     <string name="lab4_remove_cat">Удалить из кэша</string>
+
+    <!--
+      Лаба 6: графика (Canvas), локализация и виджет.
+      Строки вынесены сюда, а не в код: их же переводят values-en и values-de,
+      и именно на них видно, как приложение меняет язык на ходу.
+    -->
+    <string name="lab6_select_color">Выбрать цвет</string>
+    <string name="lab6_select_width">Толщина линии</string>
+    <string name="lab6_clear">Очистить</string>
+    <string name="lab6_current_color">Текущий цвет</string>
+    <string name="lab6_locale_info">Текущая локаль: %1$s</string>
+    <string name="lab6_export">Экспорт рисунка</string>
+    <string name="lab6_export_ok">Рисунок сохранён: %1$s</string>
+    <string name="lab6_export_failed">Не удалось сохранить рисунок: %1$s</string>
+    <string name="lab6_language">Язык приложения</string>
+    <string name="lab6_choose_language">Выберите язык</string>
+    <string name="lab6_language_system">Как в системе</string>
+    <string name="lab6_language_ru">Русский</string>
+    <string name="lab6_language_en">English</string>
+    <string name="lab6_language_de">Deutsch</string>
+    <plurals name="lab6_strokes">
+        <item quantity="one">%d штрих</item>
+        <item quantity="few">%d штриха</item>
+        <item quantity="many">%d штрихов</item>
+        <item quantity="other">%d штрихов</item>
+    </plurals>
+
+    <!-- Виджет «Котёнок дня» -->
+    <string name="lab6_widget_title">Котёнок дня</string>
+    <string name="lab6_widget_update">Обновить кота</string>
+    <string name="lab6_widget_empty">Нажмите «Обновить кота»</string>
+    <string name="lab6_widget_desc">Виджет с картинкой кота с CATAAS</string>
+
+    <!-- Настройки: переключатель языка -->
+    <string name="settings_language">Язык приложения</string>
 </resources>

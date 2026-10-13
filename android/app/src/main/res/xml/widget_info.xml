@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Описание виджета для лаунчера:
+  - minWidth/minHeight — минимальный размер в dp (формула: 70*n - 30);
+  - updatePeriodMillis — минимально возможное значение 30 минут (1800000);
+  - initialLayout — разметка, которую лаунчер покажет сразу после добавления;
+  - previewImage — картинка для панели выбора виджетов.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/widget_cat"
+    android:minHeight="110dp"
+    android:minWidth="180dp"
+    android:previewImage="@mipmap/ic_launcher"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen" />

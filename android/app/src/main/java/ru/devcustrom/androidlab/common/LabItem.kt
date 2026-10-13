@@ -67,7 +67,7 @@ object LabCatalog {
             number = 6,
             titleRes = ru.devcustrom.androidlab.R.string.lab6_title,
             summaryRes = ru.devcustrom.androidlab.R.string.lab6_summary,
-            activityClass = null,
+            activityClass = ru.devcustrom.androidlab.lab6.Lab6Activity::class.java,
         ),
     )
 }

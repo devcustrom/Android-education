@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- В тёмной теме оставляем холст тёпло-серым: чёрная бумага усложняет
+         восприятие чёрной краски. -->
+    <color name="drawing_background">#FF1F1F1F</color>
+</resources>

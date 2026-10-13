@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Разметка виджета. Из чего можно собирать RemoteViews — жёстко ограниченный
+  список (FrameLayout, LinearLayout, RelativeLayout, GridLayout, TextView,
+  ImageView, Button, ImageButton, ProgressBar, Chronometer). Кастомные View,
+  ConstraintLayout и Material-компоненты здесь запрещены.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/lab6_widget_title"
+        android:textColor="#FFFFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/widget_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/lab6_widget_desc"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cat_placeholder" />
+
+    <Button
+        android:id="@+id/widget_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:minHeight="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="@string/lab6_widget_update"
+        android:textSize="12sp" />
+</LinearLayout>

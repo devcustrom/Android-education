@@ -65,6 +65,42 @@
             android:parentActivityName=".lab5.Lab5Activity"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".lab6.Lab6Activity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!--
+          Виджет «Котёнок дня». `exported="false"` — правильное значение и здесь:
+          системная рассылка APPWIDGET_UPDATE адресована конкретному компоненту,
+          а не «всем желающим».
+        -->
+        <receiver
+            android:name=".lab6.widget.CatWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+        <!--
+          AppCompat хранит выбранный язык приложения между запусками сам, но
+          только если объявлен этот сервис с `autoStoreLocales`. Без него
+          `setApplicationLocales` на API < 33 «забудется» после перезапуска.
+        -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+
         <!--
           На API 24+ нельзя отдать другому приложению Uri.fromFile(...) —
           система выбросит FileUriExposedException. FileProvider выдаёт

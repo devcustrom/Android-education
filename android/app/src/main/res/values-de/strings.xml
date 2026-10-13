@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Labs</string>
+    <string name="main_intro">Android-Übungslabore: von Spinner und RecyclerView bis Room, Dateien und eigener Grafik. Jedes Labor ist ein eigener Bildschirm und ein eigenes Dokumentationskapitel.</string>
+
+    <!-- Allgemein -->
+    <string name="action_back">Zurück</string>
+    <string name="source_cdn">Quelle: CDN (jsDelivr)</string>
+    <string name="source_assets">Quelle: assets (Offline-Kopie)</string>
+
+    <!-- Hauptbildschirm und Labor 3 -->
+    <string name="lab_number_format">Nr. %1$d</string>
+    <string name="lab_status_ready">Fertig</string>
+    <string name="lab_status_soon">In Arbeit</string>
+    <string name="lab1_summary">Spinner, ViewModel, JSON vom CDN</string>
+    <string name="lab2_summary">RecyclerView, DiffUtil, Coil, Cache in filesDir</string>
+    <string name="lab3_summary">Menüs, Intent, Austausch von Ergebnissen</string>
+    <string name="lab5_summary">Room, DAO, Flow, Liste von Notizen</string>
+    <string name="lab6_summary">Canvas, Lokalisierung, Widget</string>
+
+    <string name="lab3_title">Labor 3. Menü und mehrere Activities</string>
+    <string name="lab4_summary">Bundle, filesDir, MediaStore</string>
+    <string name="lab4_title">Labor 4. Dateien und Zustand</string>
+    <string name="lab5_title">Labor 5. Datenbank mit Room</string>
+    <string name="lab6_title">Labor 6. Grafik, Lokalisierung, Widget</string>
+
+    <string name="menu_about">Über die App</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="menu_exit">Beenden</string>
+    <string name="menu_open">Öffnen</string>
+    <string name="menu_share">Teilen</string>
+
+    <string name="main_not_ready">%1$s ist noch nicht implementiert</string>
+    <string name="main_share_format">Schau dir das Labor „%1$s“ in Android Labs an</string>
+    <string name="main_share_chooser">Teilen</string>
+    <string name="main_no_share_app">Keine App zum Teilen gefunden</string>
+    <string name="main_last_value">Labor 1 gab zurück: %1$s</string>
+
+    <!-- Labor 3: Über und Einstellungen -->
+    <string name="about_title">Über die App</string>
+    <string name="about_student_format">Student: %1$s</string>
+    <string name="about_student_unset">Student nicht angegeben — öffne „Einstellungen“</string>
+    <string name="about_version_format">Version %1$s</string>
+    <string name="about_what_is_this">Was ist das</string>
+    <string name="about_description">Ein Studienprojekt aus sechs Android-Laboren: von Spinner und Listen bis Room, Dateien und eigener Grafik. Jedes Labor ist ein eigener Bildschirm und ein eigenes Dokumentationskapitel.</string>
+    <string name="about_intent_hint">Dieser Bildschirm wird per Intent aus dem Hauptmenü gestartet. Der Studentenname kommt als Extra „student_name“ an.</string>
+    <string name="about_share_button">App teilen</string>
+    <string name="about_share_text">Android Labs — ein Android-Studienprojekt</string>
+    <string name="about_share_chooser">Teilen</string>
+
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_name_hint">Studentenname</string>
+    <string name="settings_name_hint_note">Wird in SharedPreferences gespeichert und per Intent an die Laborbildschirme übergeben.</string>
+    <string name="settings_save">Speichern</string>
+    <string name="settings_name_error">Namen eingeben</string>
+    <string name="settings_saved">Gespeichert</string>
+
+    <!-- Labor 1 -->
+    <string name="lab1_title">Labor 1. Einheitenumrechner</string>
+    <string name="lab1_pick_group">Was umrechnen</string>
+    <string name="lab1_from">Von</string>
+    <string name="lab1_to">Nach</string>
+    <string name="lab1_swap">Tauschen</string>
+    <string name="lab1_value_hint">Wert</string>
+    <string name="lab1_result_placeholder">—</string>
+    <string name="lab1_result_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="lab1_loading">Einheitenverzeichnis wird geladen…</string>
+    <string name="lab1_retry">Wiederholen</string>
+    <string name="lab1_empty_group">Wähle eine Größenart</string>
+    <string name="lab1_group_length">Länge</string>
+    <string name="lab1_group_mass">Masse</string>
+    <string name="lab1_group_volume">Volumen</string>
+    <string name="lab1_error_value">Gib eine Zahl ein</string>
+
+    <!-- Labor 2 -->
+    <string name="lab2_title">Labor 2. Katzen-Galerie</string>
+    <string name="lab2_loading">Katzen werden von CATAAS geladen…</string>
+    <string name="lab2_retry">Wiederholen</string>
+    <string name="lab2_error">Laden fehlgeschlagen</string>
+    <string name="lab2_cat_photo">Katzenfoto</string>
+    <string name="lab2_no_browser">Keine App zum Öffnen des Links gefunden</string>
+    <string name="lab2_source_network">Quelle: Netzwerk</string>
+    <string name="lab2_source_cache">Quelle: Cache (kein Netzwerk)</string>
+    <string name="lab2_tag_chip">%1$s · %2$d</string>
+
+    <plurals name="lab2_cats_count">
+        <item quantity="one">%d Katze</item>
+        <item quantity="other">%d Katzen</item>
+    </plurals>
+    <!-- Labor 5: Room, Notizen -->
+    <string name="lab5_add">Hinzufügen</string>
+    <string name="lab5_save">Speichern</string>
+    <string name="lab5_new_note">Neue Notiz</string>
+    <string name="lab5_edit_note">Bearbeiten</string>
+    <string name="lab5_note_title">Titel</string>
+    <string name="lab5_note_body">Notiztext</string>
+    <string name="lab5_empty">Noch keine Notizen.\nTippe „Hinzufügen“, um die erste zu erstellen.</string>
+    <string name="lab5_empty_search">Nichts gefunden</string>
+    <string name="lab5_empty_note">Titel oder Text eingeben</string>
+    <string name="lab5_saved">Notiz gespeichert</string>
+    <string name="lab5_note_missing">Die Notiz wurde gelöscht, während der Bildschirm offen war</string>
+    <string name="lab5_delete_all">Alle Notizen löschen</string>
+    <string name="lab5_delete_all_confirm">Notizen können nicht wiederhergestellt werden. Alles löschen?</string>
+    <string name="lab5_delete">Löschen</string>
+    <string name="lab5_all_deleted">Alle Notizen gelöscht</string>
+    <string name="lab5_meta">%1$s · id=%2$d</string>
+    <string name="lab5_just_now">gerade eben</string>
+    <string name="lab5_no_title">Ohne Titel</string>
+    <string name="lab5_search">Suche</string>
+    <string name="lab5_search_hint">Notizen durchsuchen</string>
+    <string name="lab5_deleted">Notiz gelöscht</string>
+    <string name="lab5_undo">Rückgängig</string>
+    <plurals name="lab5_count">
+        <item quantity="one">%d Notiz</item>
+        <item quantity="other">%d Notizen</item>
+    </plurals>
+
+    <!-- Labor 4: Dateien, Cache, Zustandswiederherstellung -->
+    <string name="lab4_cache_view_title">cats_cache.json</string>
+    <string name="lab4_cache_info">%1$d Katzen · %2$d Bytes</string>
+    <string name="lab4_cache_meta">%1$d Bytes · %2$d Katzen</string>
+    <string name="lab4_cache_missing">Kein Cache: öffne Labor 2 und lade die Galerie</string>
+    <string name="lab4_cache_cleared">Cache gelöscht</string>
+    <string name="lab4_cache_clear_failed">Cache konnte nicht gelöscht werden</string>
+    <string name="lab4_empty_cache">Cache ist leer. Lade die Galerie in Labor 2</string>
+    <string name="lab4_selected">Ausgewählt: %1$d · tippe eine Katze an</string>
+    <string name="lab4_id_copied">ID kopiert: %1$s</string>
+    <string name="lab4_show_cache">Cache anzeigen</string>
+    <string name="lab4_clear_cache">Cache leeren</string>
+    <string name="lab4_export">In „Downloads“ exportieren</string>
+    <string name="lab4_export_ok">Exportiert: %1$s</string>
+    <string name="lab4_export_failed">Export fehlgeschlagen: %1$s</string>
+    <string name="lab4_cat_removed">Aus Cache entfernt: %1$s</string>
+    <string name="lab4_cat_not_found">Keine Katze %1$s im Cache</string>
+    <string name="lab4_share_cat">Teilen</string>
+    <string name="lab4_copy_cat_id">ID kopieren</string>
+    <string name="lab4_remove_cat">Aus Cache entfernen</string>
+
+    <!-- Labor 6: Grafik, Lokalisierung, Widget -->
+    <string name="lab6_select_color">Farbe wählen</string>
+    <string name="lab6_select_width">Linienbreite</string>
+    <string name="lab6_clear">Löschen</string>
+    <string name="lab6_current_color">Aktuelle Farbe</string>
+    <string name="lab6_locale_info">Aktuelles Gebietsschema: %1$s</string>
+    <string name="lab6_export">Zeichnung exportieren</string>
+    <string name="lab6_export_ok">Zeichnung gespeichert: %1$s</string>
+    <string name="lab6_export_failed">Zeichnung konnte nicht gespeichert werden: %1$s</string>
+    <string name="lab6_language">App-Sprache</string>
+    <string name="lab6_choose_language">Sprache wählen</string>
+    <string name="lab6_language_system">Systemsprache</string>
+    <string name="lab6_language_ru">Русский</string>
+    <string name="lab6_language_en">English</string>
+    <string name="lab6_language_de">Deutsch</string>
+    <plurals name="lab6_strokes">
+        <item quantity="one">%d Strich</item>
+        <item quantity="other">%d Striche</item>
+    </plurals>
+
+    <!-- Widget "Katze des Tages" -->
+    <string name="lab6_widget_title">Katze des Tages</string>
+    <string name="lab6_widget_update">Katze aktualisieren</string>
+    <string name="lab6_widget_empty">Tippe „Katze aktualisieren“</string>
+    <string name="lab6_widget_desc">Ein Startbildschirm-Widget mit einem CATAAS-Katzenbild</string>
+
+    <!-- Einstellungen: Sprachumschaltung -->
+    <string name="settings_language">App-Sprache</string>
+</resources>

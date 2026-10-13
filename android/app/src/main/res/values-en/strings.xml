@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Labs</string>
+    <string name="main_intro">Android study labs: from Spinner and RecyclerView to Room, files and custom graphics. Each lab is its own screen and its own documentation chapter.</string>
+
+    <!-- Common -->
+    <string name="action_back">Back</string>
+    <string name="source_cdn">Source: CDN (jsDelivr)</string>
+    <string name="source_assets">Source: assets (offline copy)</string>
+
+    <!-- Main screen and Lab 3 -->
+    <string name="lab_number_format">#%1$d</string>
+    <string name="lab_status_ready">Ready</string>
+    <string name="lab_status_soon">In progress</string>
+    <string name="lab1_summary">Spinner, ViewModel, loading JSON from CDN</string>
+    <string name="lab2_summary">RecyclerView, DiffUtil, Coil, cache in filesDir</string>
+    <string name="lab3_summary">Menus, Intent, exchanging results between screens</string>
+    <string name="lab5_summary">Room, DAO, Flow, a list of notes</string>
+    <string name="lab6_summary">Canvas, localization, widget</string>
+
+    <string name="lab3_title">Lab 3. Menu and multiple Activities</string>
+    <string name="lab4_summary">Bundle, filesDir, MediaStore</string>
+    <string name="lab4_title">Lab 4. Files and state</string>
+    <string name="lab5_title">Lab 5. Database with Room</string>
+    <string name="lab6_title">Lab 6. Graphics, localization, widget</string>
+
+    <string name="menu_about">About</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_exit">Exit</string>
+    <string name="menu_open">Open</string>
+    <string name="menu_share">Share</string>
+
+    <string name="main_not_ready">%1$s is not implemented yet</string>
+    <string name="main_share_format">Check out the lab “%1$s” in Android Labs</string>
+    <string name="main_share_chooser">Share</string>
+    <string name="main_no_share_app">No app found to share with</string>
+    <string name="main_last_value">Lab 1 returned: %1$s</string>
+
+    <!-- Lab 3: About and Settings -->
+    <string name="about_title">About</string>
+    <string name="about_student_format">Student: %1$s</string>
+    <string name="about_student_unset">Student is not set — open “Settings”</string>
+    <string name="about_version_format">Version %1$s</string>
+    <string name="about_what_is_this">What is this</string>
+    <string name="about_description">A study project of six Android labs: from Spinner and lists to Room, files and custom graphics. Each lab is its own screen and its own documentation chapter.</string>
+    <string name="about_intent_hint">This screen is launched via Intent from the main menu. The student name arrives as the extra “student_name”.</string>
+    <string name="about_share_button">Share the app</string>
+    <string name="about_share_text">Android Labs — an Android study project</string>
+    <string name="about_share_chooser">Share</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_name_hint">Student name</string>
+    <string name="settings_name_hint_note">Stored in SharedPreferences and passed to lab screens via Intent.</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_name_error">Enter a name</string>
+    <string name="settings_saved">Saved</string>
+
+    <!-- Lab 1 -->
+    <string name="lab1_title">Lab 1. Unit converter</string>
+    <string name="lab1_pick_group">What to convert</string>
+    <string name="lab1_from">From</string>
+    <string name="lab1_to">To</string>
+    <string name="lab1_swap">Swap</string>
+    <string name="lab1_value_hint">Value</string>
+    <string name="lab1_result_placeholder">—</string>
+    <string name="lab1_result_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="lab1_loading">Loading the units reference…</string>
+    <string name="lab1_retry">Retry</string>
+    <string name="lab1_empty_group">Pick a quantity group</string>
+    <string name="lab1_group_length">Length</string>
+    <string name="lab1_group_mass">Mass</string>
+    <string name="lab1_group_volume">Volume</string>
+    <string name="lab1_error_value">Enter a number</string>
+
+    <!-- Lab 2 -->
+    <string name="lab2_title">Lab 2. Cats gallery</string>
+    <string name="lab2_loading">Loading cats from CATAAS…</string>
+    <string name="lab2_retry">Retry</string>
+    <string name="lab2_error">Loading failed</string>
+    <string name="lab2_cat_photo">Cat photo</string>
+    <string name="lab2_no_browser">No app found to open the link</string>
+    <string name="lab2_source_network">source: network</string>
+    <string name="lab2_source_cache">source: cache (no network)</string>
+    <string name="lab2_tag_chip">%1$s · %2$d</string>
+
+    <plurals name="lab2_cats_count">
+        <item quantity="one">%d cat</item>
+        <item quantity="other">%d cats</item>
+    </plurals>
+    <!-- Lab 5: Room, notes -->
+    <string name="lab5_add">Add</string>
+    <string name="lab5_save">Save</string>
+    <string name="lab5_new_note">New note</string>
+    <string name="lab5_edit_note">Edit</string>
+    <string name="lab5_note_title">Title</string>
+    <string name="lab5_note_body">Note text</string>
+    <string name="lab5_empty">No notes yet.\nTap “Add” to create the first one.</string>
+    <string name="lab5_empty_search">Nothing found</string>
+    <string name="lab5_empty_note">Enter a title or text</string>
+    <string name="lab5_saved">Note saved</string>
+    <string name="lab5_note_missing">The note was deleted while the screen was open</string>
+    <string name="lab5_delete_all">Delete all notes</string>
+    <string name="lab5_delete_all_confirm">Notes cannot be restored. Delete everything?</string>
+    <string name="lab5_delete">Delete</string>
+    <string name="lab5_all_deleted">All notes deleted</string>
+    <string name="lab5_meta">%1$s · id=%2$d</string>
+    <string name="lab5_just_now">just now</string>
+    <string name="lab5_no_title">Untitled</string>
+    <string name="lab5_search">Search</string>
+    <string name="lab5_search_hint">Search notes</string>
+    <string name="lab5_deleted">Note deleted</string>
+    <string name="lab5_undo">Undo</string>
+    <plurals name="lab5_count">
+        <item quantity="one">%d note</item>
+        <item quantity="other">%d notes</item>
+    </plurals>
+
+    <!-- Lab 4: files, cache, state restoration -->
+    <string name="lab4_cache_view_title">cats_cache.json</string>
+    <string name="lab4_cache_info">%1$d cats · %2$d bytes</string>
+    <string name="lab4_cache_meta">%1$d bytes · %2$d cats</string>
+    <string name="lab4_cache_missing">No cache: open Lab 2 and load the gallery</string>
+    <string name="lab4_cache_cleared">Cache deleted</string>
+    <string name="lab4_cache_clear_failed">Failed to delete the cache</string>
+    <string name="lab4_empty_cache">Cache is empty. Load the gallery in Lab 2</string>
+    <string name="lab4_selected">Selected: %1$d · tap a cat to mark it</string>
+    <string name="lab4_id_copied">ID copied: %1$s</string>
+    <string name="lab4_show_cache">Show cache</string>
+    <string name="lab4_clear_cache">Clear cache</string>
+    <string name="lab4_export">Export to “Downloads”</string>
+    <string name="lab4_export_ok">Exported: %1$s</string>
+    <string name="lab4_export_failed">Failed to export: %1$s</string>
+    <string name="lab4_cat_removed">Removed from cache: %1$s</string>
+    <string name="lab4_cat_not_found">No cat %1$s in the cache</string>
+    <string name="lab4_share_cat">Share</string>
+    <string name="lab4_copy_cat_id">Copy ID</string>
+    <string name="lab4_remove_cat">Remove from cache</string>
+
+    <!-- Lab 6: graphics, localization, widget -->
+    <string name="lab6_select_color">Select color</string>
+    <string name="lab6_select_width">Line width</string>
+    <string name="lab6_clear">Clear</string>
+    <string name="lab6_current_color">Current color</string>
+    <string name="lab6_locale_info">Current locale: %1$s</string>
+    <string name="lab6_export">Export drawing</string>
+    <string name="lab6_export_ok">Drawing saved: %1$s</string>
+    <string name="lab6_export_failed">Failed to save the drawing: %1$s</string>
+    <string name="lab6_language">App language</string>
+    <string name="lab6_choose_language">Choose a language</string>
+    <string name="lab6_language_system">System default</string>
+    <string name="lab6_language_ru">Русский</string>
+    <string name="lab6_language_en">English</string>
+    <string name="lab6_language_de">Deutsch</string>
+    <plurals name="lab6_strokes">
+        <item quantity="one">%d stroke</item>
+        <item quantity="other">%d strokes</item>
+    </plurals>
+
+    <!-- Widget "Cat of the day" -->
+    <string name="lab6_widget_title">Cat of the day</string>
+    <string name="lab6_widget_update">Update cat</string>
+    <string name="lab6_widget_empty">Tap “Update cat”</string>
+    <string name="lab6_widget_desc">A home screen widget with a CATAAS cat picture</string>
+
+    <!-- Settings: language switch -->
+    <string name="settings_language">App language</string>
+</resources>
