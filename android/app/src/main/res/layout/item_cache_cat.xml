@@ -23,20 +23,44 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textAppearance="?attr/textAppearanceTitleSmall"
         app:layout_constraintEnd_toStartOf="@id/catTags"
         app:layout_constraintStart_toEndOf="@id/checkBox"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="60b1a2f5c7f8f9d1b2c3d4e5" />
 
+    <!--
+      Ширина тегов ограничена: у кота бывает 5+ тегов, и без потолка
+      wrap_content-строка съедала всю ширину, сжимая id до одной буквы в строке.
+      constrainedWidth + width_max не дают ей разрастись, а ellipsize прячет
+      хвост длинного списка.
+    -->
     <TextView
         android:id="@+id/catTags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textAppearance="?attr/textAppearanceBodyMedium"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBaseline_toBaselineOf="@id/catId"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="160dp"
         tools:text="Black · Cute" />
+
+    <!--
+      Барьер по нижней кромке id и тегов: теги могут занять одну или две
+      строки, и url должен опускаться под самую низкую из них. Без барьера
+      вторая строка тегов наезжает на url.
+    -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/headerBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="catId,catTags" />
 
     <TextView
         android:id="@+id/catUrl"
@@ -48,7 +72,7 @@
         android:textAppearance="?attr/textAppearanceBodySmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/checkBox"
-        app:layout_constraintTop_toBottomOf="@id/catId"
+        app:layout_constraintTop_toBottomOf="@id/headerBarrier"
         tools:text="https://cataas.com/cat/60b1a2f5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
