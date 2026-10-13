@@ -13,7 +13,7 @@
 | 3 | Меню, `Intent`, несколько Activity | [docs/03-lab-menu-activity.md](docs/03-lab-menu-activity.md) | ✅ | `lab3-v1.0` |
 | 4 | Файлы, кэш, сохранение состояния | [docs/04-lab-files-state.md](docs/04-lab-files-state.md) | ✅ | `lab4-v1.0` |
 | 5 | Room: заметки | [docs/05-lab-room.md](docs/05-lab-room.md) | ✅ | `lab5-v1.0` |
-| 6 | Графика, локализация, виджет | [docs/06-lab-canvas-widget.md](docs/06-lab-canvas-widget.md) | 🔜 | `lab6-v1.0` |
+| 6 | Графика, локализация, виджет | [docs/06-lab-canvas-widget.md](docs/06-lab-canvas-widget.md) | ✅ | `lab6-v1.0` |
 
 </div>
 
@@ -31,7 +31,7 @@
 | 3 | ![Меню и несколько Activity](docs/assets/lab3-demo.gif) |
 | 4 | ![Файлы и состояние](docs/assets/lab4-demo.gif) |
 | 5 | ![Room: заметки](docs/assets/lab5-demo.gif) |
-| 6 | ![TODO](docs/assets/lab6-demo.gif) |
+| 6 | ![Графика, локализация, виджет](docs/assets/lab6-demo.gif) |
 
 ---
 

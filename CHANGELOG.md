@@ -7,6 +7,38 @@
 
 ## [Unreleased]
 
+## [1.5.0] — Лабораторная 6
+
+### Этап G — Графика, локализация, виджет
+- **Графика:** `lab6/DrawingView` (`onDraw` + `onTouchEvent`, хранение линий в
+  `Path`), `lab6/BrushPalette` (цвета и толщины), `lab6/Lab6Activity` (выбор
+  цвета/толщины, «Очистить», счётчик штрихов).
+- **Контраст:** `lab6/ColorContrast` — относительная яркость и отношение
+  контраста по WCAG 2.1. Вычисления в `Double`, в `Float` — только результат.
+  6 unit-тестов `ColorContrastTest` зелёные.
+- **Экспорт:** `lab6/Lab6Exporter` сохраняет снимок холста в «Загрузки» через
+  `MediaStore` (тот же приём, что в Лабе 4, но из `Bitmap`).
+- **Локализация:** строки Лабы 6 вынесены в `strings.xml`; добавлены
+  `values-en/strings.xml` и `values-de/strings.xml` с полным набором строк.
+  Переключатель языка в `SettingsActivity` через
+  `AppCompatDelegate.setApplicationLocales`; сохранение выбора между запусками
+  обеспечивает `AppLocalesMetadataHolderService` (`autoStoreLocales`).
+- **Виджет:** `lab6/widget/CatWidgetProvider` (`AppWidgetProvider`),
+  `res/layout/widget_cat.xml` (только `RemoteViews`-совместимые `View`),
+  `res/xml/widget_info.xml` (`updatePeriodMillis = 1800000`). Загрузка картинки
+  случайного кота с CATAAS — вне главного потока (`goAsync()` + корутина на
+  `Dispatchers.IO`); кнопка «Обновить кота» — через `PendingIntent`.
+- **Манифест:** зарегистрированы `Lab6Activity`, `receiver` виджета и сервис
+  локалей; `LabCatalog` открывает Лабу 6.
+- **Ресурсы:** `values/colors.xml` — `drawing_background`, `values-night/colors.xml`
+  — тёмный вариант фона холста.
+- **Документация:** `docs/06-lab-canvas-widget.md` (теория, Mermaid, реализация,
+  7 грабель, чек-лист) и ассеты `docs/assets/lab6-*`.
+- **Тесты:** всего 56 unit-тестов, все зелёные; `assembleDebug` успешен.
+- **Исправлено после регрессии строк:** возвращён `<plurals name="lab2_cats_count">`
+  (был по ошибке заменён на `<string>`), восстановлены канонические строки Лаб 1–5,
+  удалены лишние `strings_extra.xml` / `strings_lab6_more.xml`.
+
 ## [1.4.0] — Лабораторная 5
 
 ### Этап F — Room, DAO, Flow
