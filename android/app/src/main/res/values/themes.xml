@@ -1,8 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AndroidLabs" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!--
+          targetSdk 35+ включает edge-to-edge: приложение само рисует под строкой
+          статуса и навигации. Значит, appearance системных иконок тоже на нас:
+          в светлой теме это тёмные иконки на светлом фоне, в тёмной — светлые
+          (см. values-night). Без этих строк система по умолчанию рисует белые
+          иконки, и на светлом фоне строка статуса «сливается» с приложением.
+        -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
     <style name="Theme.AndroidLabs" parent="Base.Theme.AndroidLabs" />

@@ -8,7 +8,9 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceContainer"
+        android:fitsSystemWindows="true">
 
         <!--
             app:menu / три точки живут здесь: MainActivity раздувает R.menu.menu_main
