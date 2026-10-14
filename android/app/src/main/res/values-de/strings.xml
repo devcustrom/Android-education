@@ -74,7 +74,7 @@
 
     <!-- Labor 2 -->
     <string name="lab2_title">Labor 2. Katzen-Galerie</string>
-    <string name="lab2_loading">Katzen werden von CATAAS geladen…</string>
+    <string name="lab2_loading">Katzen werden von Wikimedia Commons geladen…</string>
     <string name="lab2_retry">Wiederholen</string>
     <string name="lab2_error">Laden fehlgeschlagen</string>
     <string name="lab2_cat_photo">Katzenfoto</string>
@@ -160,7 +160,7 @@
     <string name="lab6_widget_title">Katze des Tages</string>
     <string name="lab6_widget_update">Katze aktualisieren</string>
     <string name="lab6_widget_empty">Tippe „Katze aktualisieren“</string>
-    <string name="lab6_widget_desc">Ein Startbildschirm-Widget mit einem CATAAS-Katzenbild</string>
+    <string name="lab6_widget_desc">Ein Startbildschirm-Widget mit einem Wikimedia-Commons-Katzenbild</string>
 
     <!-- Einstellungen: Sprachumschaltung -->
     <string name="settings_language">App-Sprache</string>

@@ -80,7 +80,7 @@ flowchart TD
     subgraph WIDGET["lab6.widget.CatWidgetProvider"]
         UPD["onUpdate → goAsync()"]
         RV["RemoteViews + PendingIntent"]
-        NET["CataasApi + OkHttp"]
+        NET["CatsApi + OkHttp"]
     end
 
     MENU --> SETTINGS
@@ -254,7 +254,7 @@ private fun refreshCats(context: Context) {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     scope.launch {
         try {
-            val bitmap = loadRandomCatImage()          // CataasApi + OkHttp
+            val bitmap = loadRandomCatImage()          // CatsApi + OkHttp
             updateAll(context, bitmap, null)
         } catch (e: Exception) {
             updateAll(context, null, e.message)

@@ -5,7 +5,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.devcustrom.androidlab.data.model.Cat
-import ru.devcustrom.androidlab.data.network.CataasApi
+import ru.devcustrom.androidlab.data.network.CatsApi
 import java.io.IOException
 
 /**
@@ -14,8 +14,8 @@ import java.io.IOException
  * Схема сознательно простая, без Room и без библиотек:
  *
  * ```
- *  сеть доступна?  ──да──►  GET cataas.com  ──ошибка?──►  кэш
- *        │                                                    │
+ *  сеть доступна?  ──да──►  GET commons.wikimedia.org  ──ошибка?──►  кэш
+ *        │                                                              │
  *        └──нет──►  кэш ◄─────────────  кэша нет? ──►  ошибка на экран
  * ```
  *
@@ -29,7 +29,7 @@ import java.io.IOException
  */
 class CatRepository(
     private val context: Context,
-    private val api: CataasApi = CataasApi(),
+    private val api: CatsApi = CatsApi(),
 ) {
 
     /** Что получилось в итоге: сеть, кэш или ничего. */

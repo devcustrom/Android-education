@@ -74,7 +74,7 @@
 
     <!-- Lab 2 -->
     <string name="lab2_title">Lab 2. Cats gallery</string>
-    <string name="lab2_loading">Loading cats from CATAAS…</string>
+    <string name="lab2_loading">Loading cats from Wikimedia Commons…</string>
     <string name="lab2_retry">Retry</string>
     <string name="lab2_error">Loading failed</string>
     <string name="lab2_cat_photo">Cat photo</string>
@@ -160,7 +160,7 @@
     <string name="lab6_widget_title">Cat of the day</string>
     <string name="lab6_widget_update">Update cat</string>
     <string name="lab6_widget_empty">Tap “Update cat”</string>
-    <string name="lab6_widget_desc">A home screen widget with a CATAAS cat picture</string>
+    <string name="lab6_widget_desc">A home screen widget with a Wikimedia Commons cat picture</string>
 
     <!-- Settings: language switch -->
     <string name="settings_language">App language</string>

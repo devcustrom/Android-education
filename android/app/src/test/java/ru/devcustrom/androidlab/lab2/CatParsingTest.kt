@@ -5,14 +5,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import ru.devcustrom.androidlab.data.model.Cat
-import ru.devcustrom.androidlab.data.model.RandomCatDto
+import ru.devcustrom.androidlab.data.model.CommonsResponse
+import ru.devcustrom.androidlab.data.model.tagsFromTitle
 import ru.devcustrom.androidlab.data.model.toCat
 
 /**
- * Разбор настоящих ответов CATAAS.
+ * Разбор ответа Wikimedia Commons.
  *
- * Строки записаны как есть, с сервера — чтобы тест ловил то, что прилетает в
- * проде, а не то, что мы себе представляем.
+ * Строки записаны как есть, с сервера (`formatversion=2`, поэтому `pages` —
+ * массив), чтобы тест ловил то, что прилетает в проде.
  */
 class CatParsingTest {
 
@@ -22,89 +23,95 @@ class CatParsingTest {
         explicitNulls = false
     }
 
-    @Test
-    fun `разбирает массив котов`() {
-        val body = """[{"id":"04eEQhDfAL8l5nt3","tags":["two","double","black"],
-            "mimetype":"image/jpeg","createdAt":"2022-07-18T11:28:29.596Z"}]"""
+    private fun catsFrom(body: String): List<Cat> =
+        json.decodeFromString<CommonsResponse>(body).query?.pages.orEmpty().map { it.toCat() }
 
-        val cats = json.decodeFromString<List<Cat>>(body)
+    @Test
+    fun `разбирает ответ Commons в список котов`() {
+        val body = """
+            {"batchcomplete":"","query":{"pages":[
+              {"pageid":105443106,"ns":6,"title":"File:Aska, cat, on her tree.png",
+               "imageinfo":[{"thumburl":"https://upload.wikimedia.org/a/600px-Aska.png",
+                 "thumbwidth":600,"thumbheight":400,
+                 "url":"https://upload.wikimedia.org/a/Aska.png",
+                 "descriptionurl":"https://commons.wikimedia.org/wiki/File:Aska.png",
+                 "mime":"image/png","timestamp":"2024-01-02T03:04:05Z"}]}
+            ]}}
+        """.trimIndent()
+
+        val cats = catsFrom(body)
 
         assertEquals(1, cats.size)
-        assertEquals("04eEQhDfAL8l5nt3", cats[0].id)
-        assertEquals(listOf("two", "double", "black"), cats[0].tags)
-        assertEquals("image/jpeg", cats[0].mimetype)
+        assertEquals("105443106", cats[0].id)
+        assertEquals("https://upload.wikimedia.org/a/600px-Aska.png", cats[0].imageUrl)
+        assertEquals("image/png", cats[0].mimetype)
+        assertEquals("2024-01-02T03:04:05Z", cats[0].createdAt)
+        assertEquals(listOf("aska", "tree"), cats[0].tags)
     }
 
     @Test
     fun `лишние поля сервера не ломают разбор`() {
-        val body = """[{"id":"abc","tags":["cute"],"mimetype":"image/png",
-            "createdAt":"2024-01-01T00:00:00.000Z","_id":"64f0","type":"jpg",
-            "resizedUrl":"https://example.com/x.png","size":12345}]"""
+        val body = """
+            {"batchcomplete":"","continue":{"gcmcontinue":"abc"},
+             "query":{"pages":[
+               {"pageid":7,"ns":6,"title":"File:Cute black kitten.jpg",
+                "imagerepository":"local","_extra":true,
+                "imageinfo":[{"thumburl":"https://upload.wikimedia.org/x.jpg",
+                  "mime":"image/jpeg","timestamp":"2024-01-01T00:00:00Z",
+                  "thumbattribs":{"width":600}}]}
+             ]}}
+        """.trimIndent()
 
-        val cats = json.decodeFromString<List<Cat>>(body)
+        val cats = catsFrom(body)
 
         assertEquals(1, cats.size)
-        assertEquals("abc", cats[0].id)
+        assertEquals("7", cats[0].id)
+        assertEquals(listOf("cute", "black"), cats[0].tags)
     }
 
     @Test
-    fun `котик без тегов не роняет разбор`() {
-        val body = """[{"id":"only-id","mimetype":"image/jpeg"}]"""
+    fun `теги берутся из имени файла без служебных слов`() {
+        assertEquals(listOf("aska", "tree"), tagsFromTitle("File:Aska, cat, on her tree.png"))
+        assertEquals(listOf("anak", "kucing", "taman"), tagsFromTitle("File:Anak Kucing di Taman.jpg"))
+        assertTrue(tagsFromTitle("File:The cat photo.jpg").isEmpty())
+    }
 
-        val cats = json.decodeFromString<List<Cat>>(body)
+    @Test
+    fun `не больше четырёх тегов`() {
+        val tags = tagsFromTitle("File:Fluffy white sleeping tabby kitten portrait.jpg")
+        assertEquals(Cat.MAX_TAGS, tags.size)
+    }
 
+    @Test
+    fun `страница без imageinfo не роняет разбор`() {
+        val body = """{"query":{"pages":[{"pageid":1,"title":"File:Cat photo.jpg"}]}}"""
+
+        val cats = catsFrom(body)
+
+        assertEquals("", cats[0].url)
         assertTrue(cats[0].tags.isEmpty())
         assertEquals("Кот без тегов", cats[0].title)
     }
 
     @Test
-    fun `случайный кот приходит объектом с created_at`() {
-        val body = """{"id":"VPTdYP5NVR9GC7sZ","tags":["calvin"],
-            "created_at":"2021-01-19T21:20:35.611Z",
-            "url":"https://cataas.com/cat/VPTdYP5NVR9GC7sZ?position=center",
-            "mimetype":"image/jpeg"}"""
-
-        val cat = json.decodeFromString<RandomCatDto>(body).toCat()
-
-        assertEquals("VPTdYP5NVR9GC7sZ", cat.id)
-        assertEquals("2021-01-19T21:20:35.611Z", cat.createdAt)
-    }
-
-    @Test
-    fun `адрес картинки собирается из id когда url нет`() {
-        val cat = Cat(id="abc", tags = listOf("cute"), createdAt = "2024-01-01T00:00:00.000Z")
-
-        assertEquals("https://cataas.com/cat/abc", cat.imageUrl)
-    }
-
-    @Test
-    fun `готовый url сервера важнее собранного из id`() {
-        val body = """{"id":"abc","tags":[],"created_at":"2024-01-01T00:00:00.000Z",
-            "url":"https://cataas.com/cat/abc?position=center"}"""
-
-        val cat = json.decodeFromString<RandomCatDto>(body).toCat()
-
-        assertEquals("https://cataas.com/cat/abc?position=center", cat.imageUrl)
-    }
-
-    @Test
     fun `подпись собирается из тегов`() {
-        val cat = Cat(id="abc", tags = listOf("cool_cat", "funny"), createdAt = "")
+        val cat = Cat(id = "abc", tags = listOf("cool_cat", "funny"), createdAt = "")
 
         assertEquals("Cool cat · Funny", cat.title)
     }
 
     @Test
-    fun ` модель переживает круговую сериализацию в кэш`() {
+    fun `модель переживает круговую сериализацию в кэш`() {
         val original = Cat(
-            id = "abc",
-            tags = listOf("cute", "black"),
-            mimetype = "image/jpeg",
-            createdAt = "2024-01-01T00:00:00.000Z",
+            id = "105443106",
+            tags = listOf("aska", "tree"),
+            mimetype = "image/png",
+            createdAt = "2024-01-02T03:04:05Z",
+            url = "https://upload.wikimedia.org/a/600px-Aska.png",
         )
 
         val restored = json.decodeFromString<List<Cat>>(
-            json.encodeToString(listOf(original))
+            json.encodeToString(listOf(original)),
         )
 
         assertEquals(listOf(original), restored)

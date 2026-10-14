@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/checkBox"
         app:layout_constraintTop_toBottomOf="@id/catId"
-        tools:text="https://cataas.com/cat/60b1a2f5" />
+        tools:text="https://upload.wikimedia.org/wikipedia/commons/4/44/Aska.jpg" />
 
     <!--
       Теги идут последней строкой, после ссылки. Так у них вся ширина до

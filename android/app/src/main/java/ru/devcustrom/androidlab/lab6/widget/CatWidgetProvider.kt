@@ -16,13 +16,13 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import okhttp3.Request
 import ru.devcustrom.androidlab.R
-import ru.devcustrom.androidlab.data.network.CataasApi
+import ru.devcustrom.androidlab.data.network.CatsApi
 import ru.devcustrom.androidlab.data.network.HttpClientProvider
 import ru.devcustrom.androidlab.lab6.Lab6Activity
 import java.io.IOException
 
 /**
- * Виджет рабочего стола «Котёнок дня»: картинка случайного кота с CATAAS.
+ * Виджет рабочего стола «Котёнок дня»: картинка случайного кота из Wikimedia Commons.
  *
  * Три вещи, которые нужно знать про `AppWidgetProvider`:
  * - **`onUpdate` — не место для сети.** Он вызывается в главном потоке на широковещательном
@@ -143,7 +143,7 @@ class CatWidgetProvider : AppWidgetProvider() {
     // --------------------------------------------------------------------- сеть
 
     private suspend fun loadRandomCatImage(): Bitmap {
-        val cat = CataasApi().getRandomCat()
+        val cat = CatsApi().getRandomCat()
         val bytes = download(cat.imageUrl)
         return decodeScaled(bytes, MAX_SIDE_PX)
             ?: throw IOException("Не удалось декодировать картинку кота")
@@ -158,7 +158,7 @@ class CatWidgetProvider : AppWidgetProvider() {
     }
 
     /**
-     * CATAAS отдаёт картинки «как есть» — это может быть несколько мегапикселей.
+     * Commons отдаёт картинки «как есть» — это может быть несколько мегапикселей.
      * В виджет такая картинка не влезет, а в память процесса — запросто. Поэтому
      * считаем `inSampleSize` по границам, не декодируя полное изображение.
      */

@@ -9,7 +9,7 @@
 | Лаба | Тема | Документация | Статус | Тег |
 |:----:|------|:-------------|:------:|:---:|
 | 1 | Конвертер величин | [docs/01-lab-converter.md](docs/01-lab-converter.md) | ✅ | `lab1-v1.0` |
-| 2 | Галерея котиков (CATAAS) | [docs/02-lab-cats-gallery.md](docs/02-lab-cats-gallery.md) | ✅ | `lab2-v1.0` |
+| 2 | Галерея котиков (Wikimedia Commons) | [docs/02-lab-cats-gallery.md](docs/02-lab-cats-gallery.md) | ✅ | `lab2-v1.0` |
 | 3 | Меню, `Intent`, несколько Activity | [docs/03-lab-menu-activity.md](docs/03-lab-menu-activity.md) | ✅ | `lab3-v1.0` |
 | 4 | Файлы, кэш, сохранение состояния | [docs/04-lab-files-state.md](docs/04-lab-files-state.md) | ✅ | `lab4-v1.0` |
 | 5 | Room: заметки | [docs/05-lab-room.md](docs/05-lab-room.md) | ✅ | `lab5-v1.0` |
@@ -141,7 +141,7 @@ Android-education/
 **не удаляются** после исправления — это и есть основная ценность репозитория.
 
 Данные не захардкожены: всё, что можно, лежит в `data/*.json` и раздаётся через
-[jsDelivr](https://www.jsdelivr.com/), либо приходит из внешнего API ([CATAAS](https://cataas.com/)).
+[jsDelivr](https://www.jsdelivr.com/), либо приходит из внешнего API ([Wikimedia Commons](https://commons.wikimedia.org/)).
 
 ---
 

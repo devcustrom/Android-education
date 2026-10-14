@@ -1,16 +1,18 @@
 # Лабораторная 2. Галерея котиков: `RecyclerView`, `DiffUtil`, Coil
 
 > **Сложность:** средняя · **Время:** 2.5–3.5 часа · **Тег:** `lab2-v1.0`
-> **Итог:** приложение грузит 20 котов с [CATAAS](https://cataas.com/), показывает их сеткой,
+> **Итог:** приложение грузит 20 котов из [Wikimedia Commons](https://commons.wikimedia.org/), показывает их сеткой,
 > фильтрует по тегам, кэширует ответ на диск и переживает отсутствие сети.
 
 ![Демонстрация Лабы 2](assets/lab2-demo.gif)
+
+> 🎬 [WebM-версия демо](assets/lab2-demo.webm) — то же самое, но меньше размером и лучше качеством.
 
 ---
 
 ## 🎯 Цель работы
 
-> Сделать экран-галерею: приложение запрашивает 20 котов с [CATAAS](https://cataas.com/),
+> Сделать экран-галерею: приложение запрашивает 20 котов из [Wikimedia Commons](https://commons.wikimedia.org/),
 > показывает их сеткой карточек, позволяет фильтровать по тегам и переживает отсутствие
 > сети за счёт дискового кэша.
 
@@ -36,6 +38,8 @@
 ## 🖼️ Что получится
 
 ![Демонстрация Лабы 2](assets/lab2-demo.gif)
+
+> 🎬 [WebM-версия демо](assets/lab2-demo.webm) — то же самое, но меньше размером и лучше качеством.
 
 | Экран | Скриншот |
 |-------|----------|
@@ -73,7 +77,7 @@ flowchart TD
         FC["filesDir/cats_cache.json"]
     end
 
-    API["CataasApi<br/>OkHttp + kotlinx.serialization"]
+    API["CatsApi<br/>OkHttp + kotlinx.serialization"]
 
     CHIPS -->|выбор тега| VM
     SR -->|нажатие карточки| UI
@@ -89,7 +93,7 @@ flowchart TD
     VM -->|viewModelScope + IO| REPO
     REPO --> API
     REPO <--> FC
-    API -.->|cataas.com| EXT(["https://cataas.com"])
+    API -.->|commons.wikimedia.org| EXT(["https://commons.wikimedia.org"])
 ```
 
 Два ключевых решения, видных на схеме:
@@ -188,7 +192,7 @@ Loading  ──ок──►  Success
 
 ## 🛠 Реализация
 
-### Шаг 1. Модель и почему их две
+### Шаг 1. Модель
 
 [`data/model/Cat.kt`](../android/app/src/main/java/ru/devcustrom/androidlab/data/model/Cat.kt):
 
@@ -199,36 +203,40 @@ data class Cat(
     val tags: List<String> = emptyList(),
     val mimetype: String = "",
     val createdAt: String = "",
-    val url: String? = null,
+    val url: String = "",
 ) {
-    val imageUrl: String get() = url ?: "https://cataas.com/cat/$id"
+    val imageUrl: String get() = url
     val title: String get() = tagLabel.ifBlank { FALLBACK_TITLE }
 }
 ```
 
-У CATAAS **два разных формата ответа**, и это не выдумка:
+Данные приходят из **Wikimedia Commons**. Один запрос `action=query` с
+`generator=categorymembers` отдаёт страницы файлов из категории `Category:Cats`,
+а `prop=imageinfo` — ссылку на картинку и метаданные. Формат ответа **один**,
+поэтому и DTO один: `CommonsResponse` → `CommonsQuery.pages` → `CommonsPage.toCat()`.
 
-| Запрос | Форма ответа | Поле даты |
-|--------|--------------|-----------|
-| `/api/cats?limit=20` | массив объектов | `createdAt` |
-| `/cat?json=true` | один объект | `created_at` |
-
-У одного свойства `@Serializable` может быть **только одно** имя в JSON, поэтому
-для «случайного кота» заведён отдельный DTO `RandomCatDto` с
-`@SerialName("created_at")` и функцией `toCat()`.
+Теги собираются из **имени файла**: категории у файлов Commons почти всегда
+служебные (`CC-BY-SA-4.0`, `Self-published work`), а в названии есть осмысленные
+слова — «Aska, cat, on her tree» → `aska`, `tree`. Служебные слова (`cat`,
+`photo`, `the`…) отсекаются.
 
 ### Шаг 2. Сетевой слой
 
-[`data/network/CataasApi.kt`](../android/app/src/main/java/ru/devcustrom/androidlab/data/network/CataasApi.kt)
-— два метода и общий `HttpClientProvider` (см. Лабу 1).
+[`data/network/CatsApi.kt`](../android/app/src/main/java/ru/devcustrom/androidlab/data/network/CatsApi.kt)
+— два метода (`getCats`, `getRandomCat`) и общий `HttpClientProvider` (см. Лабу 1).
 
 ```kotlin
 private val json = Json {
-    ignoreUnknownKeys = true   // сервер добавляет поля _id, type, resizedUrl
+    ignoreUnknownKeys = true   // Commons добавляет поля, о которых модель не знает
     isLenient = true
     explicitNulls = false
 }
 ```
+
+Важная деталь, которая стоила отдельной отладки: Wikimedia отвечает **`403`** на
+стандартный `User-Agent: okhttp/…`. Поэтому общий `HttpClientProvider` добавляет
+интерцептор с честным UA, и **этот же клиент отдаётся Coil** (см.
+`AndroidLabsApp`) — иначе картинки «не грузились» при рабочем API.
 
 ### Шаг 3. Репозиторий: сеть → кэш → ошибка
 
@@ -303,7 +311,7 @@ val fromNetwork = runCatching { api.getCats(limit) }
 Теперь в logcat видно и тип, и текст:
 
 ```
-W CatRepository: Сеть не ответила, пробуем кэш: UnknownHostException: Unable to resolve host "cataas.com"
+W CatRepository: Сеть не ответила, пробуем кэш: UnknownHostException: Unable to resolve host "commons.wikimedia.org"
 ```
 
 > 💡 `runCatching` хорош тем, что не тащит try/catch. Но **`runCatching` без
@@ -371,20 +379,31 @@ setTag(R.id.tag_name, name)
 group.findViewById<Chip>(it)?.getTag(R.id.tag_name) as? String
 ```
 
-### Грабля 6. CATAAS реально отваливается
+### Грабля 6. Картинки не грузятся, хотя API отвечает (403 из-за `User-Agent`)
 
-**Симптом:** два первых запуска подряд показали ошибку, третий — загрузил 20 котов
-за 2.7 секунды.
+**Симптом:** список пришёл — «20 котов · источник: сеть», — а вместо фото на каждой
+карточке красная иконка ошибки.
 
-**Причина:** `cataas.com` нестабилен. Первый запрос висел до `readTimeout`
-(20 секунд) и падал по таймауту.
+**Причина:** CDN Wikimedia (`upload.wikimedia.org`) отвечает **`403`** на стандартный
+`User-Agent: okhttp/4.12.0`, который по умолчанию ставит OkHttp (и, значит, Coil).
+С браузерным или пустым `User-Agent` тот же запрос — `200 OK`:
 
-**Что сделано:** ничего — и это правильный ответ. Бесплатный API без гарантий
-нельзя чинить «починкой» на стороне клиента. Зато состояние ошибки, кнопка
-«Повторить» и отказ показывать пустой экран как будто всё в порядке — обязательны.
-Именно поэтому в приложении и есть третья ветка.
+```bash
+curl -o /dev/null -w '%{http_code}\n' -A 'okhttp/4.12.0' <url-картинки>   # 403
+curl -o /dev/null -w '%{http_code}\n' -A 'Mozilla/5.0'  <url-картинки>   # 200
+```
 
-> 📌 Проверяйте «не работает» на нескольких попытках, прежде чем искать баг у себя.
+**Что сделано:** общий `HttpClientProvider` получил интерцептор, который ставит
+честный `User-Agent`, и **этот же клиент отдан Coil** через `AndroidLabsApp`
+(`ImageLoaderFactory`). Одним изменением закрыли и API, и картинки.
+
+> 📌 Если API отвечает, а картинок нет — проверяйте статус-код ответа, а не кэш.
+> «Заглушка» на экране может значить не «не загрузилось», а «сервер отказал».
+
+> 📌 Раньше здесь был CATAAS, который то отвечал, то нет. Его заменили на Wikimedia
+> Commons: и JSON, и картинки отдаются с `wikimedia.org`, а работоспособность не
+> зависит от настроения чужого сервера. Состояние ошибки всё равно остаётся —
+> бесплатный внешний API без него в приложении держать нельзя.
 
 ### Грабля 7. Русские окончания показываются неправильно
 
@@ -436,7 +455,7 @@ group.findViewById<Chip>(it)?.getTag(R.id.tag_name) as? String
 | Фильтрация в ViewModel | Мгновенно, без повторного запроса | Сеть на каждый чип |
 | Чипы в отдельной горизонтальной ленте | 100+ тегов не влезут в строку | `ChipGroup` на всю ширину |
 | `resources.getQuantityString` | Окончания из ресурсов | Ручные `% 10` |
-| Состояние ошибки с кнопкой | CATAAS стабильно отваливается | Пустой экран |
+| Состояние ошибки с кнопкой | Внешний API может отдать 403 или не ответить | Пустой экран |
 
 ---
 
@@ -450,7 +469,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 1. Открыть **Лаба 2** → 20 котов, подпись `источник: сеть`.
 2. Проверить кэш: `adb shell run-as ru.devcustrom.androidlab ls -l files`.
-3. Тапнуть чип `black · 3` → останутся 3 кота с этим тегом.
+3. Тапнуть любой чип с тегом → останутся только коты с этим тегом.
 4. Протянуть список вниз (pull-to-refresh) → список обновится, **не моргая** пустотой.
 5. Выключить сеть (`adb shell svc wifi disable`), перезапустить →
    `источник: кэш (сети нет)`, те же 20 котов.
@@ -463,9 +482,9 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ## 📌 Про запасной файл `data/cats_fallback.json`
 
 В репозитории лежит [`data/cats_fallback.json`](../data/cats_fallback.json) — реальный
-снимок ответа CATAAS на 20 котов. В коде Лабы 2 он **не используется**: кэш
-создаётся в `filesDir` при первом успешном ответе, иначе состояние ошибки было бы
-недостижимым.
+снимок ответа Wikimedia Commons на 20 котов (та же форма, что разбирает `CatsApi`).
+В коде Лабы 2 он **не используется**: кэш создаётся в `filesDir` при первом успешном
+ответе, иначе состояние ошибки было бы недостижимым.
 
 Если хочется «первый запуск без сети»:
 
@@ -500,7 +519,8 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 - [`GridLayoutManager`](https://developer.android.com/reference/androidx/recyclerview/widget/GridLayoutManager)
 - [Coil: Requests and caching](https://coil-kt.github.io/coil/compose/)
 - [Coil: ListAdapter + RecyclerView](https://coil-kt.github.io/coil/recipes/)
-- [CATAAS API](https://cataas.com/)
+- [Wikimedia Commons API](https://commons.wikimedia.org/w/api.php)
+- [MediaWiki API: `query`](https://www.mediawiki.org/wiki/API:Query)
 - [`AppCompatActivity.onCreateOptionsMenu`](https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity#onCreateOptionsMenu(android.view.Menu))
 - [`ActivityResultContracts.StartActivityForResult`](https://developer.android.com/training/components/activity-result-contracts)
 - [Локализация и `plurals`](https://developer.android.com/guide/topics/resources/providing-resources#Plurals)
@@ -518,7 +538,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 > явно требует `RecyclerView` + `ListAdapter`. Следовал `C2`; переписывать работающую лабу
 > под противоречивую строку не стал.
 
-> ⚠️ Открытый вопрос: `tags` в 100 проверенных ответах CATAAS приходили **массивом**,
-> но у API встречается и строковый вариант (`"tags": "cute"`). Код рассчитан на массив,
-> терпимый сериализатор не добавлен. Если вёрстка строки сломается — причина здесь,
-> а не в `DiffUtil`.
+> 📌 Теги здесь — не серверное поле, а **слова из имени файла** (см. `tagsFromTitle`
+> в `data/model/Cat.kt`): категории Commons почти всегда служебные (`CC-BY-SA-4.0`,
+> `Self-published work`), поэтому фильтр строится по названию. Если теги покажутся
+> странными — смотрите `tagsFromTitle`, а не `DiffUtil`.

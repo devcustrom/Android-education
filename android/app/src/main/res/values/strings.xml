@@ -74,7 +74,7 @@
 
     <!-- Лабораторная 2 -->
     <string name="lab2_title">Лаба 2. Галерея котиков</string>
-    <string name="lab2_loading">Грузим котов с CATAAS…</string>
+    <string name="lab2_loading">Грузим котов из Wikimedia Commons…</string>
     <string name="lab2_retry">Повторить</string>
     <string name="lab2_error">Ошибка загрузки</string>
     <string name="lab2_cat_photo">Фотография кота</string>
@@ -170,7 +170,7 @@
     <string name="lab6_widget_title">Котёнок дня</string>
     <string name="lab6_widget_update">Обновить кота</string>
     <string name="lab6_widget_empty">Нажмите «Обновить кота»</string>
-    <string name="lab6_widget_desc">Виджет с картинкой кота с CATAAS</string>
+    <string name="lab6_widget_desc">Виджет с картинкой кота из Wikimedia Commons</string>
 
     <!-- Настройки: переключатель языка -->
     <string name="settings_language">Язык приложения</string>
